@@ -15,6 +15,14 @@ Vue.use(VueRouter)
 // route imported
 import { routes } from './routes'
 
+// import User Class
+
+//Any property of this is avalable globaly
+import User from './helpers/User'
+window.User = User
+
+
+
 const router = new VueRouter({
     routes,
     mode: 'history'
