@@ -335,6 +335,16 @@
 
 <script type="text/javascript">
 
+export default {
+    created(){
+        if(!User.loggedIn()){                  // if user not login
+            this.$router.push({name : '/'})    // '/' is login page
+        }
+    }
+
+}
+
+
 </script>
 
 
