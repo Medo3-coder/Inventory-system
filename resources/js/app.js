@@ -12,14 +12,39 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+
+//Any property of this is avalable globaly
+
 // route imported
 import { routes } from './routes'
 
 // import User Class
-
-//Any property of this is avalable globaly
 import User from './helpers/User'
 window.User = User
+
+//Sweet Alert Start
+
+import Swal from 'sweetalert2'
+
+window.Swal = Swal
+
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+})
+
+
+window.Toast = Toast
+
+//Sweet Alert end
 
 
 

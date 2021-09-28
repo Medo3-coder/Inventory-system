@@ -16,11 +16,15 @@
                   <!-- prevent : to not load the page  -->
     <form class="user" @submit.prevent="login">
     <div class="form-group">
-        <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
+        <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" required=""
         placeholder="Enter Email Address" v-model="form.email">
+        <!-- display error message  -->
+        <!-- <small class="text-danger" v-if="errors.email">{{ errors.email }}</small> -->
     </div>
     <div class="form-group">
-        <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password" v-model="form.password">
+        <input type="password" class="form-control" required="" id="exampleInputPassword" placeholder="Password" v-model="form.password">
+        <!-- display error message  -->
+         <!-- <small class="text-danger" v-if="errors.password">{{errors.password[0]}}</small> -->
     </div>
     <div class="form-group">
         <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
@@ -69,7 +73,8 @@ export default {
         form : {
             email : null ,
             password : null
-        }
+        },
+        // errors:{}
     }
 },
 methods : {
@@ -77,10 +82,20 @@ methods : {
         axios.post('api/auth/login', this.form)
        .then(res => {
            User.responseAfterLogin(res)
+         Toast.fire({
+               icon: 'success',
+               title: 'Signed in successfully'
+           })
            this.$router.push({name : 'home'})      // make redirection to home after login
            })
 
-        .catch(error => console.log(error.response.data))
+        .catch(error =>this.errors =  error.response.data.errors)   // to display error
+        .catch(
+           Toast.fire({
+               icon: 'warning',
+               title: 'Invalid Email or Password'
+           })
+        )
     }
 }
 
