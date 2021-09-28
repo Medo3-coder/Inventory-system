@@ -70,8 +70,11 @@ export default {
 methods : {
     login(){
         axios.post('api/auth/login', this.form)
-       .then(res => User.responseAfterLogin(res))
-       // .then(res => console.log(res.data))
+       .then(res => {
+           User.responseAfterLogin(res)
+           this.$router.push({name : 'home'})      // make redirection to home after login
+           })
+
         .catch(error => console.log(error.response.data))
     }
 }
