@@ -52,7 +52,7 @@
      </div>
 
  <div class="col-md-6">
- <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Sallary " v-model="form.sallary" required="">
+ <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Sallary " v-model="form.sallery" required="">
 
       </div>
 
@@ -101,7 +101,7 @@
  <div class="form-group">
 <div class="form-row">
      <div class="col-md-6">
-           <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected" required="">
+           <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected" >
 
            <label class="custom-file-label" for="customFile">Choose file</label>
      </div>
@@ -185,7 +185,7 @@ methods:{
             reader.onload = event => {
                 this.form.photo = event.target.result;
                       console.log(event.target.result);
-            }
+            };
             reader.readAsDataURL(file);
 
         }
@@ -196,6 +196,7 @@ methods:{
             this.$router.push({name : 'employee'})
             Notification.success()
         })
+        .catch(error =>this.errors = error.response.data.errors)
 
     }
 
