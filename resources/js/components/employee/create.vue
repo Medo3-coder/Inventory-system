@@ -101,14 +101,14 @@
  <div class="form-group">
 <div class="form-row">
      <div class="col-md-6">
-           <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected">
+           <input type="file" class="custom-file-input" id="customFile" @change="onFileSelected" required="">
 
            <label class="custom-file-label" for="customFile">Choose file</label>
      </div>
 
 
  <div class="col-md-6">
-  <img src="form.photo" style="height : 40px;  width : 40px">
+  <img :src="form.photo" style="height : 40px;  width : 40px">
       </div>
 
  </div>
@@ -181,10 +181,21 @@ methods:{
             Notification.image_validation()
         }
         else{
-            console.log(event)
+            let reader = new FileReader();
+            reader.onload = event => {
+                this.form.photo = event.target.result;
+                      console.log(event.target.result);
+            }
+            reader.readAsDataURL(file);
+
         }
     },
     employeeInsert(){
+        axios.post('/api/employee' , this.form)
+        .then(() => {
+            this.$router.push({name : 'employee'})
+            Notification.success()
+        })
 
     }
 
