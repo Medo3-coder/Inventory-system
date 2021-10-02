@@ -6,7 +6,7 @@ use Image;
 
 class FileService{
 
-
+//image/jpeg;base64
     public static function uploadBase64Image($image){
         $postion = strpos($image , ";");
         $substr = substr($image , 0 , $postion);

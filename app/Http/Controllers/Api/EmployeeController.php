@@ -37,7 +37,6 @@ class EmployeeController extends Controller
 
         $validateData = $request->validated();
 
-        //image/jpeg;base64
         if($request->photo){
             $validateData['photo'] =  FileService::uploadBase64Image($request->photo);
         }
@@ -81,6 +80,17 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $employee = Employee::find($id);
+        $photo =  $employee->photo;
+        if($photo)
+        {
+            unlink($photo);
+            Employee::find($id)->delete();
+        }
+        else
+        {
+            Employee::find($id)->delete();
+        }
+
     }
 }

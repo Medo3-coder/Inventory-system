@@ -2,21 +2,19 @@
 
 <template>
 
-	<div>
+  <div>
 
-        <div class="row">
-            <router-link to="/store-employee" class="btn btn-primary">Add Employee</router-link>
+ <div class="row">
+  <router-link to="/store-employee" class="btn btn-primary">Add Employee </router-link>
 
-        </div>
-
-   <br>
-
+ </div>
+<br>
    <input type="text" v-model="searchTerm" class="form-control" style="width: 300px;" placeholder="Search Here">
 
-   <br>
 
+<br>
 
-        <div class="row">
+   <div class="row">
             <div class="col-lg-12 mb-4">
               <!-- Simple Tables -->
               <div class="card">
@@ -36,18 +34,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                        <!-- all data passed in filtersearch method -->
+                      <!-- all data passed in filtersearch method -->
                       <tr v-for="employee in filtersearch" :key="employee.id">
-                          <td> {{ employee.name }} </td>
+                        <td> {{ employee.name }} </td>
                         <td><img :src="employee.photo" id="em_photo"></td>
                         <td>{{ employee.phone }}</td>
                         <td>{{ employee.sallery }}</td>
                         <td>{{ employee.joining_date }}</td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                            <a @click="deleteEmployee(employee.id)" class="btn btn-sm btn-danger">Delete</a>
-                            </td>
+            <td>
+   <router-link :to="{name: 'edit-employee', params:{id:employee.id}}" class="btn btn-sm btn-primary">Edit</router-link>
 
+ <a @click="deleteEmployee(employee.id)" class="btn btn-sm btn-danger"><font color="#ffffff">Delete</font></a>
+            </td>
                       </tr>
 
                     </tbody>
@@ -57,99 +55,89 @@
               </div>
             </div>
           </div>
+          <!--Row-->
 
-	     </div>
+
+
+  </div>
 
 
 </template>
 
 
 
-
 <script type="text/javascript">
 
-export default {
+  export default {
     created(){
-        if(!User.loggedIn()){
-            this.$router.push({name : 'home'})
-        }
-
+      if (!User.loggedIn()) {
+        this.$router.push({name: '/'})
+      }
     },
-
     data(){
-        return{
-            // recive data that passed from create page
-            employees: [],
-            searchTerm:'',
-        }
+      return{
+        employees:[],
+        searchTerm:''
+      }
     },
-
     computed:{
-        filtersearch(){
-            // here can access to all data
-            return this.employees.filter(employee => {
-                return employee.name.match(this.searchTerm)
+      filtersearch(){
+           // here can access to all data
+      return this.employees.filter(employee => {
+         return employee.name.match(this.searchTerm)
+      })
+      }
+    },
+
+  methods:{
+    allEmployee(){
+      axios.get('/api/employee/')
+      .then(({data}) => (this.employees = data))
+      .catch()
+    },
+  deleteEmployee(id){
+             Swal.fire({
+              title: 'Are you sure?',
+              text: "You won't be able to revert this!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+              if (result.value) {
+                axios.delete('/api/employee/'+id)
+               .then(() => {
+                this.employees = this.employees.filter(employee => {
+                  return employee.id != id         // to return the page without loading
+                })
+               })
+               .catch(() => {
+                this.$router.push({name: 'employee'})
+               })
+                Swal.fire(
+                  'Deleted!',
+                  'Your file has been deleted.',
+                  'success'
+                )
+              }
             })
-        }
-    },
 
-    methods:{
-        allEmployee(){
-            axios.get('api/employee/')
-            .then(({data}) => (this.employees = data))
-            .catch()
-        }
-    },
-
-    deleteEmployee(id)
-    {
-
-       Swal.fire({
-       title: 'Are you sure?',
-       text: "You won't be able to revert this!",
-       icon: 'warning',
-       showCancelButton: true,
-       confirmButtonColor: '#3085d6',
-       cancelButtonColor: '#d33',
-       confirmButtonText: 'Yes, delete it!' })
-        .then((result) => {
-      if (result.isConfirmed) {
-          axios.delete('api/employee/'+id)
-          .then(() => {
-              this.employees = this.employees.filter(employee => {
-                 return employee.id != id           // to return the page without loading
-              })
-          })
-          .catch(()=>{
-              this.$router.push({name : 'employee'})
-          })
-       Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
   }
-})
-    },
 
-    created(){
-        this.allEmployee();
-    }
-
+  },
+  created(){
+    this.allEmployee();
+  }
 
 
-
-}
-
-
+  }
 </script>
 
 
 <style type="text/css">
-
-#em_photo {
+  #em_photo{
     height: 40px;
     width: 40px;
-}
-
+  }
 </style>
