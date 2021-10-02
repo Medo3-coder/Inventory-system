@@ -68,17 +68,7 @@ class AuthController extends Controller
                 $token = auth()->login($user);
 
                 return $this->createNewToken($token);
-
-        // return response()->json([
-        //     'message' => 'User successfully registered',
-        //     'user' => $user
-
-        // ], 201);
-
-
-
     }
-
 
     /**
      * Log the user out (Invalidate the token).
