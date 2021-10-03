@@ -25,13 +25,14 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:employees|max:255',
-            'email' => 'required',
+            'email' => 'required|email',
             'phone' => 'required|unique:employees',
             'sallery' => 'required',
             'address' => 'required',
             'nid' => 'required',
             'joining_date' => 'required',
             'photo' => 'nullable',
+            'newphoto' => 'nullable',
         ];
     }
 }

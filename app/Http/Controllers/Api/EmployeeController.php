@@ -34,7 +34,6 @@ class EmployeeController extends Controller
      */
     public function store(StoreRequest $request)
     {
-
         $validateData = $request->validated();
 
         if($request->photo){
@@ -55,7 +54,8 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        return response()->json($employee);
     }
 
 
@@ -67,9 +67,26 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreRequest $request, $id)
     {
-        //
+         $updateEmployee = $request->validated();
+
+         $img = $request->newphoto;
+
+         if($img)
+         {
+            $updateEmployee['photo'] = FileService::uploadBase64Image($img);
+            $employee = Employee::find($id);
+            $photo =  $employee->photo;
+            unlink($photo);
+            $employee->update($updateEmployee);
+
+         }
+
+
+         $employee = Employee::find($id)->update($updateEmployee);
+
+
     }
 
     /**
