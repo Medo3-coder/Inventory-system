@@ -20,10 +20,5 @@ class Employee extends Model
     ];
 
 
-    //return all employee
 
-    public function getEmployee()
-    {
-        return Employee::all();
-    }
 }

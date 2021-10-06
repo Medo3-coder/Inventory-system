@@ -20,7 +20,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employee = (new Employee)->getEmployee();
+        $employee = Employee::all();
         return response()->json($employee);
     }
 
@@ -37,7 +37,7 @@ class EmployeeController extends Controller
         $validateData = $request->validated();
 
         if($request->photo){
-            $validateData['photo'] =  FileService::uploadBase64Image($request->photo);
+            $validateData['photo'] =  FileService::uploadBase64ImageforEmployee($request->photo);
         }
 
         $employee = Employee::create($validateData);
@@ -75,7 +75,7 @@ class EmployeeController extends Controller
 
          if($img)
          {
-            $updateEmployee['photo'] = FileService::uploadBase64Image($img);
+            $updateEmployee['photo'] = FileService::uploadBase64ImageforEmployee($img);
             $employee = Employee::find($id);
             $photo =  $employee->photo;
             unlink($photo);
@@ -102,11 +102,13 @@ class EmployeeController extends Controller
         if($photo)
         {
             unlink($photo);
-            Employee::find($id)->delete();
+            $employee->delete();
+
         }
         else
         {
-            Employee::find($id)->delete();
+            $employee->delete();
+
         }
 
     }
