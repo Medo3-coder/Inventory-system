@@ -5,7 +5,7 @@
 	<div>
 
         <div class="row">
-            <router-link to="/employee" class="btn btn-primary">All Employee</router-link>
+            <router-link to="/supplier" class="btn btn-primary">All Supplier</router-link>
 
         </div>
 		<div class="row justify-content-center">
@@ -16,11 +16,11 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Employee Update</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Add Supplier</h1>
                   </div>
 
                   <!-- without Loading that page it should  be  work -->
-      <form class="user" @submit.prevent="employeeUpdate" enctype="multipart/form-data">
+      <form class="user" @submit.prevent="supplierInsert" enctype="multipart/form-data">
 
         <div class="form-group">
 
@@ -52,33 +52,14 @@
      </div>
 
  <div class="col-md-6">
- <input type="number" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Sallary " v-model="form.sallery" required="">
+
+ <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Shopname " v-model="form.shopname" required="">
 
       </div>
 
  </div>
 
  </div>
-
-
-<div class="form-group">
-
-<div class="form-row">
-     <div class="col-md-6">
-         <input type="date" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Joining Date" v-model="form.joining_date" required="">
-
-     </div>
-
- <div class="col-md-6">
- <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Nid " v-model="form.nid" required="">
-
-      </div>
-
- </div>
-
- </div>
-
-
 
 
  <div class="form-group">
@@ -122,7 +103,7 @@
 
 
         <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">Update</button>
+          <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </div>
 
       </form>
@@ -160,25 +141,16 @@ export default {
     data(){
     return{
         form : {
-           name : '' ,
-           email : '' ,
-           phone : '' ,
-           sallery : '' ,
-           address : '' ,
-           photo : '' ,
-           newphoto : '' ,  // from update
-           nid : '' ,
-           joining_date : '' ,
+           name : null ,
+           email : null ,
+           phone : null ,
+           shopname : null ,
+           address : null ,
+           photo : null ,
+
         },
        // errors:{}
     }
-},
-
-created(){
-let id = this.$route.params.id
-axios.get('/api/employee/'+id)
-.then(({data}) => (this.form = data))
-.catch(console.log('error'))
 },
 methods:{
     onFileSelected(event)
@@ -191,19 +163,17 @@ methods:{
         else{
             let reader = new FileReader();
             reader.onload = event => {
-                this.form.newphoto = event.target.result;
-                console.log(event.target.result);
-
+                this.form.photo = event.target.result;
+                      console.log(event.target.result);
             };
             reader.readAsDataURL(file);
 
         }
     },
-    employeeUpdate(){
-        let id = this.$route.params.id
-        axios.put('/api/employee/'+id , this.form)
+    supplierInsert(){
+        axios.post('/api/supplier' , this.form)
         .then(() => {
-            this.$router.push({name : 'employee'})
+            this.$router.push({name : 'supplier'})
             Notification.success()
         })
         .catch(error =>this.errors = error.response.data.errors)

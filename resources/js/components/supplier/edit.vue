@@ -5,7 +5,7 @@
 	<div>
 
         <div class="row">
-            <router-link to="/employee" class="btn btn-primary">All Employee</router-link>
+            <router-link to="/employee" class="btn btn-primary">All supplier</router-link>
 
         </div>
 		<div class="row justify-content-center">
@@ -16,11 +16,11 @@
               <div class="col-lg-12">
                 <div class="login-form">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Employee Update</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Supplier Update</h1>
                   </div>
 
                   <!-- without Loading that page it should  be  work -->
-      <form class="user" @submit.prevent="employeeUpdate" enctype="multipart/form-data">
+      <form class="user" @submit.prevent="supplierUpdate" enctype="multipart/form-data">
 
         <div class="form-group">
 
@@ -52,7 +52,7 @@
      </div>
 
  <div class="col-md-6">
- <input type="number" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Sallary " v-model="form.sallery" required="">
+ <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Shop Name " v-model="form.shopname" required="">
 
       </div>
 
@@ -61,22 +61,6 @@
  </div>
 
 
-<div class="form-group">
-
-<div class="form-row">
-     <div class="col-md-6">
-         <input type="date" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Joining Date" v-model="form.joining_date" required="">
-
-     </div>
-
- <div class="col-md-6">
- <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Nid " v-model="form.nid" required="">
-
-      </div>
-
- </div>
-
- </div>
 
 
 
@@ -163,20 +147,20 @@ export default {
            name : '' ,
            email : '' ,
            phone : '' ,
-           sallery : '' ,
+           shopname : '' ,
            address : '' ,
            photo : '' ,
            newphoto : '' ,  // from update
-           nid : '' ,
-           joining_date : '' ,
+
         },
        // errors:{}
     }
 },
 
 created(){
+
 let id = this.$route.params.id
-axios.get('/api/employee/'+id)
+axios.get('/api/supplier/'+id)             // show method
 .then(({data}) => (this.form = data))
 .catch(console.log('error'))
 },
@@ -199,11 +183,11 @@ methods:{
 
         }
     },
-    employeeUpdate(){
+    supplierUpdate(){
         let id = this.$route.params.id
-        axios.put('/api/employee/'+id , this.form)
+        axios.put('/api/supplier/'+id , this.form)
         .then(() => {
-            this.$router.push({name : 'employee'})
+            this.$router.push({name : 'supplier'})
             Notification.success()
         })
         .catch(error =>this.errors = error.response.data.errors)

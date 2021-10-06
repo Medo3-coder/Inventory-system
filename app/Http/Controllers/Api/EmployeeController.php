@@ -72,19 +72,19 @@ class EmployeeController extends Controller
          $updateEmployee = $request->validated();
 
          $img = $request->newphoto;
+         $employee = Employee::find($id);
 
          if($img)
          {
             $updateEmployee['photo'] = FileService::uploadBase64ImageforEmployee($img);
-            $employee = Employee::find($id);
             $photo =  $employee->photo;
             unlink($photo);
             $employee->update($updateEmployee);
 
          }
 
+         $employee->update($updateEmployee);
 
-         $employee = Employee::find($id)->update($updateEmployee);
 
 
     }

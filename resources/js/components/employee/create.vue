@@ -31,7 +31,7 @@
      </div>
 
  <div class="col-md-6">
- <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Email " v-model="form.email" required="">
+ <input type="email" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Email " v-model="form.email" required="">
 
       </div>
 
@@ -52,7 +52,7 @@
      </div>
 
  <div class="col-md-6">
- <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Sallary " v-model="form.sallery" required="">
+ <input type="number" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Sallary " v-model="form.sallery" required="">
 
       </div>
 
@@ -70,7 +70,7 @@
      </div>
 
  <div class="col-md-6">
- <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Nid " v-model="form.nid" required="">
+ <input type="number" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Nid " v-model="form.nid" required="">
 
       </div>
 
@@ -85,7 +85,7 @@
 
 <div class="form-row">
      <div class="col-md-6">
-         <input type="text" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Phone Number" v-model="form.phone" required="">
+         <input type="number" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Phone Number" v-model="form.phone" required="">
 
      </div>
 
