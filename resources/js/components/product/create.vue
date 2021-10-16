@@ -50,24 +50,17 @@
 <div class="form-row">
      <div class="col-md-6">
          <label for="exampleFormControlSelect1">Product Category</label>
-           <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+           <select class="form-control" id="exampleFormControlSelect1" v-model="form.category_id">
+            <option v-for="category in categories" :key="category.id">{{category.category_name}}</option>
           </select>
 
      </div>
 
  <div class="col-md-6">
       <label for="exampleFormControlSelect1">Product Supplier</label>
-           <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+            <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id">
+            <option v-for="supplier in suppliers" :key="supplier.id">{{supplier.name}}</option>
+
           </select>
       </div>
 
@@ -91,13 +84,13 @@
 
       <div class="col-md-4">
          <label for="exampleFormControlSelect1">Buying Price</label>
-         <input type="text" class="form-control" id="exampleInputFirstName"  v-model="form.buying_price" required="">
+         <input type="number" class="form-control" id="exampleInputFirstName"  v-model="form.buying_price" required="">
 
      </div>
 
  <div class="col-md-4">
      <label for="exampleFormControlSelect1">Selling Price</label>
- <input type="test" class="form-control" id="exampleInputFirstName"  v-model="form.selling_price" required="">
+ <input type="number" class="form-control" id="exampleInputFirstName"  v-model="form.selling_price" required="">
 
  </div>
 
@@ -194,16 +187,24 @@ export default {
     data(){
     return{
         form : {
-           name : null ,
-           email : null ,
-           phone : null ,
-           sallery : null ,
-           address : null ,
-           photo : null ,
-           nid : null ,
-           joining_date : null ,
+           product_name : null ,
+           product_code : null ,
+           category_id : null ,
+           supplier_id : null ,
+           root : null ,
+           buying_price : null ,
+           selling_price : null ,
+           buying_date : null ,
+           image : null ,
+           product_quantity : null ,
+
+
+
         },
        // errors:{}
+       categories:{} ,  // i make it empty to receive the data from category
+       suppliers :{} ,  // i make it empty to receive the data from supplier
+
     }
 },
 methods:{
@@ -217,7 +218,7 @@ methods:{
         else{
             let reader = new FileReader();
             reader.onload = event => {
-                this.form.photo = event.target.result;
+                this.form.image = event.target.result;
                       console.log(event.target.result);
             };
             reader.readAsDataURL(file);
@@ -232,9 +233,21 @@ methods:{
         })
         .catch(error =>this.errors = error.response.data.errors)
 
-    }
+    },
 
+},
+
+// like constructor
+created()
+{
+    axios.get('/api/category/')
+    .then(({data}) => (this.categories = data))
+
+
+    axios.get('/api/supplier/')
+    .then(({data}) => (this.suppliers = data))
 }
+
 
 
 }

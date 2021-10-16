@@ -3725,6 +3725,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3902,14 +3904,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
       this.$router.push({
@@ -3920,15 +3915,21 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        name: null,
-        email: null,
-        phone: null,
-        sallery: null,
-        address: null,
-        photo: null,
-        nid: null,
-        joining_date: null
-      } // errors:{}
+        product_name: null,
+        product_code: null,
+        category_id: null,
+        supplier_id: null,
+        root: null,
+        buying_price: null,
+        selling_price: null,
+        buying_date: null,
+        image: null,
+        product_quantity: null
+      },
+      // errors:{}
+      categories: {},
+      // i make it empty to receive the data from category
+      suppliers: {} // i make it empty to receive the data from supplier
 
     };
   },
@@ -3944,7 +3945,7 @@ __webpack_require__.r(__webpack_exports__);
         var reader = new FileReader();
 
         reader.onload = function (event) {
-          _this.form.photo = event.target.result;
+          _this.form.image = event.target.result;
           console.log(event.target.result);
         };
 
@@ -3965,7 +3966,18 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   }
-});
+}, "created", function created() {
+  var _this3 = this;
+
+  axios.get('/api/category/').then(function (_ref) {
+    var data = _ref.data;
+    return _this3.categories = data;
+  });
+  axios.get('/api/supplier/').then(function (_ref2) {
+    var data = _ref2.data;
+    return _this3.suppliers = data;
+  });
+}));
 
 /***/ }),
 
@@ -51356,7 +51368,109 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(1),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("div", { staticClass: "form-row" }, [
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "exampleFormControlSelect1" } },
+                              [_vm._v("Product Category")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.category_id,
+                                    expression: "form.category_id"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "exampleFormControlSelect1" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.form,
+                                      "category_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              _vm._l(_vm.categories, function(category) {
+                                return _c("option", { key: category.id }, [
+                                  _vm._v(_vm._s(category.category_name))
+                                ])
+                              }),
+                              0
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "label",
+                              { attrs: { for: "exampleFormControlSelect1" } },
+                              [_vm._v("Product Supplier")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.supplier_id,
+                                    expression: "form.supplier_id"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "exampleFormControlSelect1" },
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.form,
+                                      "supplier_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              _vm._l(_vm.suppliers, function(supplier) {
+                                return _c("option", { key: supplier.id }, [
+                                  _vm._v(_vm._s(supplier.name))
+                                ])
+                              }),
+                              0
+                            )
+                          ])
+                        ])
+                      ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
                         _c("div", { staticClass: "form-row" }, [
@@ -51416,7 +51530,7 @@ var render = function() {
                               ],
                               staticClass: "form-control",
                               attrs: {
-                                type: "text",
+                                type: "number",
                                 id: "exampleInputFirstName",
                                 required: ""
                               },
@@ -51454,7 +51568,7 @@ var render = function() {
                               ],
                               staticClass: "form-control",
                               attrs: {
-                                type: "test",
+                                type: "number",
                                 id: "exampleInputFirstName",
                                 required: ""
                               },
@@ -51585,7 +51699,7 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(2)
+                      _vm._m(1)
                     ]
                   ),
                   _vm._v(" "),
@@ -51611,64 +51725,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "text-center" }, [
       _c("h1", { staticClass: "h4 text-gray-900 mb-4" }, [
         _vm._v("Add Product")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("div", { staticClass: "form-row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("label", { attrs: { for: "exampleFormControlSelect1" } }, [
-            _vm._v("Product Category")
-          ]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              staticClass: "form-control",
-              attrs: { id: "exampleFormControlSelect1" }
-            },
-            [
-              _c("option", [_vm._v("1")]),
-              _vm._v(" "),
-              _c("option", [_vm._v("2")]),
-              _vm._v(" "),
-              _c("option", [_vm._v("3")]),
-              _vm._v(" "),
-              _c("option", [_vm._v("4")]),
-              _vm._v(" "),
-              _c("option", [_vm._v("5")])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("label", { attrs: { for: "exampleFormControlSelect1" } }, [
-            _vm._v("Product Supplier")
-          ]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              staticClass: "form-control",
-              attrs: { id: "exampleFormControlSelect1" }
-            },
-            [
-              _c("option", [_vm._v("1")]),
-              _vm._v(" "),
-              _c("option", [_vm._v("2")]),
-              _vm._v(" "),
-              _c("option", [_vm._v("3")]),
-              _vm._v(" "),
-              _c("option", [_vm._v("4")]),
-              _vm._v(" "),
-              _c("option", [_vm._v("5")])
-            ]
-          )
-        ])
       ])
     ])
   },
