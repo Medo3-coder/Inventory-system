@@ -3952,12 +3952,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         reader.readAsDataURL(file);
       }
     },
-    employeeInsert: function employeeInsert() {
+    ProductInsert: function ProductInsert() {
       var _this2 = this;
 
-      axios.post('/api/employee', this.form).then(function () {
+      axios.post('/api/product', this.form).then(function () {
         _this2.$router.push({
-          name: 'employee'
+          name: 'product'
         });
 
         Notification.success();
@@ -51281,7 +51281,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.employeeInsert.apply(null, arguments)
+                          return _vm.ProductInsert.apply(null, arguments)
                         }
                       }
                     },

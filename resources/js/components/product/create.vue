@@ -20,7 +20,7 @@
                   </div>
 
                   <!-- without Loading that page it should  be  work -->
-      <form class="user" @submit.prevent="employeeInsert" enctype="multipart/form-data">
+      <form class="user" @submit.prevent="ProductInsert" enctype="multipart/form-data">
 
  <div class="form-group">
 
@@ -225,10 +225,10 @@ methods:{
 
         }
     },
-    employeeInsert(){
-        axios.post('/api/employee' , this.form)
+    ProductInsert(){
+        axios.post('/api/product' , this.form)
         .then(() => {
-            this.$router.push({name : 'employee'})
+            this.$router.push({name : 'product'})
             Notification.success()
         })
         .catch(error =>this.errors = error.response.data.errors)
