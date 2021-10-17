@@ -33,7 +33,7 @@
 
  <div class="col-md-6">
      <label for="exampleFormControlSelect1">Product Code</label>
- <input type="test" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Code" v-model="form.product_code" required="">
+ <input type="number" class="form-control" id="exampleInputFirstName" placeholder="Enter Your Product Code" v-model="form.product_code" required="">
 
  </div>
 

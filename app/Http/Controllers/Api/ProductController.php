@@ -60,7 +60,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return response()->json($product);
     }
 
 
@@ -71,9 +72,23 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        //
+        $updateproduct = $request->validated();
+
+        $img = $request->newimage;
+        $product = Product::find($id);
+
+        if($img)
+        {
+            $updateproduct['image'] = FileService::uploadBase64ImageForProduct($img);
+           $photo =  $product->image;
+           unlink($photo);
+           $product->update($updateproduct);
+
+        }
+
+        $product->update($updateproduct);
     }
 
     /**
