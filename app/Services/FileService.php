@@ -41,6 +41,23 @@ class FileService{
 
 
 
+    public static function uploadBase64ImageForProduct($image){
+        $postion = strpos($image , ";");
+        $substr = substr($image , 0 , $postion);
+        $exist = explode('/' , $substr)[1];  // image.png
+
+        $name = time().".".$exist;
+        $img = Image::make($image)->resize(240 , 200);
+        $upload_path = 'backend/product/';
+        $image_url = $upload_path.$name ;
+        $img->save($image_url);
+
+        return $image_url;
+    }
+
+
+
+
 
 
 

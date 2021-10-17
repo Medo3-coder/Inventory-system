@@ -51,7 +51,7 @@
      <div class="col-md-6">
          <label for="exampleFormControlSelect1">Product Category</label>
            <select class="form-control" id="exampleFormControlSelect1" v-model="form.category_id">
-            <option v-for="category in categories" :key="category.id">{{category.category_name}}</option>
+            <option :value="category.id" v-for="category in categories" :key="category.id">{{category.category_name}}</option>
           </select>
 
      </div>
@@ -59,7 +59,7 @@
  <div class="col-md-6">
       <label for="exampleFormControlSelect1">Product Supplier</label>
             <select class="form-control" id="exampleFormControlSelect1" v-model="form.supplier_id">
-            <option v-for="supplier in suppliers" :key="supplier.id">{{supplier.name}}</option>
+            <option :value="supplier.id" v-for="supplier in suppliers" :key="supplier.id">{{supplier.name}}</option>
 
           </select>
       </div>

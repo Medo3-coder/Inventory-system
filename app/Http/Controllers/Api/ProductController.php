@@ -3,9 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\ProductRequest;
+use App\Models\Category;
+use App\Models\Product;
+use App\Services\FileService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
+
+
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +21,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+         $product = (new Product)->getAllProduct();
+        return response()->json($product);
+
     }
 
 
@@ -25,9 +34,22 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request )
     {
-        //
+          $VaildatedData = $request->validated();
+
+
+          if($request->image)
+          {
+              $VaildatedData['image'] = FileService::uploadBase64ImageForProduct($request->image);
+          }
+
+         //dd($VaildatedData);
+          $product = Product::create($VaildatedData);
+
+
+
+
     }
 
     /**
@@ -62,6 +84,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $image = $product->image ;
+        if($image)
+        {
+            unlink($image);
+            $product->delete();
+        }
+
+        $product->delete();
+
     }
 }
