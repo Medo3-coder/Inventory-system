@@ -30,4 +30,11 @@ class SalaryController extends Controller
            DB::table('salaries')->insert($data);
                }
     }
+
+
+    public function allSalary()
+    {
+        $salary = DB::table('salaries')->select('salary_month')->groupBy('salary_month')->get();
+        return response()->json($salary);
+    }
 }

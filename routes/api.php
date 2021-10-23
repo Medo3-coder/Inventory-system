@@ -51,3 +51,7 @@ Route::apiResource('/product', ProductController::class);
 Route::apiResource('/expense', ExpanseController::class);
 
 Route::post('/salary/paid/{id}', [SalaryController::class , 'paid']);
+
+Route::get('/salary', [SalaryController::class , 'allSalary']);
+
+Route::get('/salary/view/{id}', [SalaryController::class , 'viewSalary']);

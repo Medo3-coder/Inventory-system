@@ -144,7 +144,7 @@ methods:{
         let id = this.$route.params.id
         axios.post('/api/salary/paid/'+id , this.form)
         .then(() => {
-            this.$router.push({name : 'given-sallary'})
+            this.$router.push({name : 'given-salary'})
             Notification.success()
         })
         .catch(error =>this.errors = error.response.data.errors)

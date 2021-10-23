@@ -142,8 +142,8 @@
         <div id="collapseBootstrap5" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
 
-            <router-link class="collapse-item" to="/given-sallary">Add Salary</router-link>
-            <router-link class="collapse-item" to="/">All Salary</router-link>
+            <router-link class="collapse-item" to="/given-salary">Add Salary</router-link>
+            <router-link class="collapse-item" to="/salary">All Salary</router-link>
 
           </div>
         </div>
