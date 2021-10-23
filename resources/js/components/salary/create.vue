@@ -20,7 +20,7 @@
                   </div>
 
                   <!-- without Loading that page it should  be  work -->
-      <form class="user" @submit.prevent="employeeUpdate">
+      <form class="user" @submit.prevent="SalaryPaid">
 
         <div class="form-group">
 
@@ -125,13 +125,8 @@ export default {
         form : {
            name : '' ,
            email : '' ,
-           phone : '' ,
            sallery : '' ,
            salary_month : '' ,
-           photo : '' ,
-           newphoto : '' ,  // from update
-           nid : '' ,
-           joining_date : '' ,
         },
         errors:{}
     }
@@ -144,29 +139,12 @@ axios.get('/api/employee/'+id)
 .catch(console.log('error'))
 },
 methods:{
-    onFileSelected(event)
-    {
-        let file = event.target.files[0];   // to access the photo
-        if(file.size > 1048770)
-        {
-            Notification.image_validation()
-        }
-        else{
-            let reader = new FileReader();
-            reader.onload = event => {
-                this.form.newphoto = event.target.result;
-                console.log(event.target.result);
 
-            };
-            reader.readAsDataURL(file);
-
-        }
-    },
-    employeeUpdate(){
+    SalaryPaid(){
         let id = this.$route.params.id
-        axios.put('/api/employee/'+id , this.form)
+        axios.post('/api/salary/paid/'+id , this.form)
         .then(() => {
-            this.$router.push({name : 'employee'})
+            this.$router.push({name : 'given-sallary'})
             Notification.success()
         })
         .catch(error =>this.errors = error.response.data.errors)

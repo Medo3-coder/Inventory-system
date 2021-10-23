@@ -5070,14 +5070,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       form: {
         name: '',
         email: '',
-        phone: '',
         sallery: '',
-        salary_month: '',
-        photo: '',
-        newphoto: '',
-        // from update
-        nid: '',
-        joining_date: ''
+        salary_month: ''
       },
       errors: {}
     };
@@ -5091,36 +5085,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return _this.form = data;
   })["catch"](console.log('error'));
 }), _defineProperty(_created$data$created, "methods", {
-  onFileSelected: function onFileSelected(event) {
+  SalaryPaid: function SalaryPaid() {
     var _this2 = this;
 
-    var file = event.target.files[0]; // to access the photo
-
-    if (file.size > 1048770) {
-      Notification.image_validation();
-    } else {
-      var reader = new FileReader();
-
-      reader.onload = function (event) {
-        _this2.form.newphoto = event.target.result;
-        console.log(event.target.result);
-      };
-
-      reader.readAsDataURL(file);
-    }
-  },
-  employeeUpdate: function employeeUpdate() {
-    var _this3 = this;
-
     var id = this.$route.params.id;
-    axios.put('/api/employee/' + id, this.form).then(function () {
-      _this3.$router.push({
-        name: 'employee'
+    axios.post('/api/salary/paid/' + id, this.form).then(function () {
+      _this2.$router.push({
+        name: 'given-sallary'
       });
 
       Notification.success();
     })["catch"](function (error) {
-      return _this3.errors = error.response.data.errors;
+      return _this2.errors = error.response.data.errors;
     });
   }
 }), _created$data$created);
@@ -55012,7 +54988,7 @@ var render = function() {
                       on: {
                         submit: function($event) {
                           $event.preventDefault()
-                          return _vm.employeeUpdate.apply(null, arguments)
+                          return _vm.SalaryPaid.apply(null, arguments)
                         }
                       }
                     },

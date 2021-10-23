@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ExpanseController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\SalaryController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
@@ -48,3 +49,5 @@ Route::apiResource('/category', CategoryController::class);
 Route::apiResource('/product', ProductController::class);
 
 Route::apiResource('/expense', ExpanseController::class);
+
+Route::post('/salary/paid/{id}', [SalaryController::class , 'paid']);
