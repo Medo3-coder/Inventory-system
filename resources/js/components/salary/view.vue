@@ -105,8 +105,5 @@
 
 
 <style type="text/css">
-  #em_photo{
-    height: 40px;
-    width: 40px;
-  }
+
 </style>
