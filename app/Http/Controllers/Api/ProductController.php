@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Services\FileService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -109,5 +110,14 @@ class ProductController extends Controller
 
         $product->delete();
 
+    }
+
+
+    public function stockUpdate(Request $request , $id)
+    {
+        // to update one field
+        $data = array();
+        $data ['product_quantity'] = $request->product_quantity;
+        $product = Product::find($id)->update($data);
     }
 }

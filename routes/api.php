@@ -46,6 +46,8 @@ Route::apiResource('/supplier', SupplierController::class);
 
 Route::apiResource('/category', CategoryController::class);
 
+Route::post('/stock/update/{id}', [ProductController::class , 'stockUpdate']);
+
 Route::apiResource('/product', ProductController::class);
 
 Route::apiResource('/expense', ExpanseController::class);
@@ -60,3 +62,5 @@ Route::get('edit/salary/{id}', [SalaryController::class , 'editSalary']);
 
 
 Route::post('/salary/update/{id}', [SalaryController::class , 'salaryUpdate']);
+
+
