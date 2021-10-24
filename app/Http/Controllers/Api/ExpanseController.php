@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Expense\StorExpense;
+use App\Http\Requests\Expense\StoreRequest;
 use App\Models\Expanse;
 use App\Models\Product;
 use Carbon\Carbon;
@@ -46,6 +46,14 @@ class ExpanseController extends Controller
 
             $expense->save();
 
+
+
+        //   $validatedData = $request->validated();
+        //  $validatedData['expense_date'] = Carbon::now();
+        //  $expanse = Expanse::create( $validatedData );
+
+
+
     }
 
     /**
@@ -76,6 +84,9 @@ class ExpanseController extends Controller
          $data['details'] = $request->details;
          $data['amount'] = $request->amount;
          $updateExpense =  Expanse::find($id)->update($data);
+
+
+
 
     }
 
