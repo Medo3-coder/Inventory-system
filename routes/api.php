@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ExpanseController;
+use App\Http\Controllers\Api\PosController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SalaryController;
 use App\Http\Controllers\Api\SupplierController;
@@ -65,6 +66,8 @@ Route::post('/salary/update/{id}', [SalaryController::class , 'salaryUpdate']);
 
 Route::post('/stock/update/{id}', [ProductController::class , 'stockUpdate']);
 
+
 Route::apiResource('/product', ProductController::class);
 
 
+Route::get('/getting/product/{id}', [PosController::class , 'getProduct']);

@@ -26,8 +26,8 @@ class ProductRequest extends FormRequest
         return [
 
             'product_name' => 'required|max:255',
-            'product_code' => 'required|unique:products',
-            'root' => 'required|unique:products',
+            'product_code' => 'required',
+            'root' => 'required',
             'buying_price' => 'required|numeric',
             'selling_price' => 'required|numeric',
             'buying_date' => 'required',
