@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Services\FileService;
@@ -22,7 +23,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-         $product = (new Product)->getAllProduct();
+        //  $product = (new Product)->getAllProduct();
+         $product = ProductResource::collection(Product::all());   // all item
+        //  $product = ProductResource::make(Product::first());   // one item
         return response()->json($product);
 
     }

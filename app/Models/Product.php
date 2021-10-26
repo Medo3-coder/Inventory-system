@@ -26,13 +26,26 @@ class Product extends Model
 
     ];
 
-    public function getAllProduct()
-    {
-      return   $product = DB::table('products')
-        ->join('categories','products.category_id','categories.id')
-        ->join('suppliers','products.supplier_id','suppliers.id')
-        ->select('categories.category_name','suppliers.name','products.*')
-        ->orderBy('products.id','DESC')
-        ->get();
+
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
+
+    // public function supplier(){
+    //     return $this->belongsTo(Supplier::class);
+    //}
+
+
+
+    // make resource instad of join
+
+    // public function getAllProduct()
+    // {
+    //   return   $product = DB::table('products')
+    //     ->join('categories','products.category_id','categories.id')
+    //     ->join('suppliers','products.supplier_id','suppliers.id')
+    //     ->select('categories.category_name','suppliers.name','products.*')
+    //     ->orderBy('products.id','DESC')
+    //     ->get();
+    // }
 }
