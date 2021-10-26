@@ -22,7 +22,7 @@ import { routes } from './routes'
 import User from './helpers/User'
 window.User = User
 
-// import Notification class 
+// import Notification class
 import Notification from './helpers/Notification';
 window.Notification = Notification
 
@@ -50,6 +50,8 @@ window.Toast = Toast
 
 //Sweet Alert end
 
+
+window.Reload = new Vue(); // declear globlly to prevent load
 
 
 const router = new VueRouter({

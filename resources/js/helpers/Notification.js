@@ -58,6 +58,18 @@ class Notification {
         }).show();
     }
 
+
+
+
+    cart_delete() {
+        new Noty({
+            type: 'success',
+            layout: "topRight",
+            text: 'Successfully Deleted!',
+
+        }).show();
+    }
+
 }
 
 export default Notification = new Notification()

@@ -74,4 +74,10 @@ Route::apiResource('/product', ProductController::class);
 Route::get('/getting/product/{id}', [PosController::class , 'getProduct']);
 
 
+//add to cart Route
 Route::get('/addToCart/{id}', [CartController::class , 'addToCart']);
+
+Route::get('/cart/product', [CartController::class , 'cartProduct']);
+
+
+Route::get('/remove/cart/{id}', [CartController::class , 'removeCart']);
