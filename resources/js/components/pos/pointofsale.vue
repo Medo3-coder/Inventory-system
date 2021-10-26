@@ -96,9 +96,8 @@
               <form action="">
                 <label>Customer Name</label>
                 <select class="form-control" v-model="customer_id">
-                  <option value="">Kazi</option>
-                  <option value="">Aryna</option>
-                  <option value="">Medo</option>
+                  <option v-for="customer in customers" :key="customer.id">{{customer.name}}</option>
+
                 </select>
 
                 <label>Pay</label>
@@ -121,10 +120,6 @@
               </form>
 
                 </div>
-
-
-
-
 
               </div>
             </div>
@@ -241,6 +236,7 @@
      created(){
     this.allProduct();
     this.allCategory();
+    this.allCustomer();
   },
 
     data(){
@@ -249,18 +245,20 @@
         categories:'',
         getproducts:[],
         searchTerm:'',
-        getsearchTerm:''
+        getsearchTerm:'',
+        customers:'',
+        errors:'',
       }
     },
     computed:{
-      filtersearch(){
+    filtersearch(){
       return this.products.filter(product => {
          return product.product_name.match(this.searchTerm)
       })
       },
 
 
-        getfiltersearch(){
+    getfiltersearch(){
       return this.getproducts.filter(getproduct => {
          return getproduct.product_name.match(this.getsearchTerm)
       })
@@ -272,14 +270,22 @@
     allProduct(){
       axios.get('/api/product/')
       .then(({data}) => (this.products = data))
-      .catch()
+      .catch(console.log('error'))
     },
 
-      allCategory(){
+    allCategory(){
       axios.get('/api/category/')
       .then(({data}) => (this.categories = data))
       .catch()
     },
+
+
+    allCustomer(){
+      axios.get('/api/customer/')
+      .then(({data}) => (this.customers = data))
+      .catch()
+    },
+
 
      subproduct(id){
       axios.get('/api/getting/product/'+id)
