@@ -11,6 +11,7 @@ class Expanse extends Model
     protected $fillable = [
         'details',
         'amount',
+        'expense_date',
 
 
 

@@ -31,26 +31,24 @@ class ExpanseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
+        // $validateData = $request->validate([
+        //     'details' => 'required',
+        //     'amount' => 'required',
+        //    ]);
 
-        $validateData = $request->validate([
-            'details' => 'required',
-            'amount' => 'required',
-           ]);
+        //     $expense = new Expanse;
+        //     $expense->details = $request->details;
+        //     $expense->amount = $request->amount;
+        //     $expense->expense_date = date('d/m/y');
 
-            $expense = new Expanse;
-            $expense->details = $request->details;
-            $expense->amount = $request->amount;
-            $expense->expense_date = date('d/m/y');
-
-            $expense->save();
-
+        //     $expense->save();
 
 
-        //   $validatedData = $request->validated();
-        //  $validatedData['expense_date'] = Carbon::now();
-        //  $expanse = Expanse::create( $validatedData );
+        $validatedData = $request->validated();
+         $validatedData['expense_date'] = Carbon::now()->format('Y-m-d');
+         $expanse = Expanse::create( $validatedData );
 
 
 
