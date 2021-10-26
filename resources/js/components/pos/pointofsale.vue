@@ -152,7 +152,7 @@
                       <input type="text" v-model="searchTerm" class="form-control" style="width: 650px;" placeholder="Search Product">
                       <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-6"  v-for="product in filtersearch" :key="product.id">
-                               <a href="#">
+                               <button class="btn btn-sm" @click.prevent="addToCart(product.id)">
                               <div class="card" style="width:8.5rem; margin-bottom: 5px;">
                                  <img :src="product.image" id="em_photo" class="card-img-top">
                                <div class="card-body">
@@ -162,7 +162,7 @@
                                <span class="badge badge-danger" v-else> Stock Out </span>
                                </div>
                             </div>
-                            </a>
+                            </button>
 
                         </div>
 
@@ -291,6 +291,14 @@
       axios.get('/api/getting/product/'+id)
       .then(({data}) => (this.getproducts = data))
       .catch()
+    },
+
+
+    addToCart(id){
+     axios.get('/api/addToCart/'+id)
+     .then(() =>{
+         Notification.cart_success()
+     })
     },
 
 

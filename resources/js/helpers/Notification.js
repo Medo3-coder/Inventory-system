@@ -48,6 +48,16 @@ class Notification {
         }).show();
     }
 
+
+    cart_success() {
+        new Noty({
+            type: 'success',
+            layout: "topRight",
+            text: 'Successfully Add to Cart!',
+
+        }).show();
+    }
+
 }
 
 export default Notification = new Notification()
