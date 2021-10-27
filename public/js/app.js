@@ -4890,7 +4890,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_created$created$data = {
   created: function created() {
     if (!User.loggedIn()) {
@@ -4988,6 +4987,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       //without loading
       Reload.$emit('AfterAdd');
       Notification.cart_delete();
+    });
+  },
+  increment: function increment(id) {
+    axios.get('/api/increment/' + id).then(function () {
+      //without loading
+      Reload.$emit('AfterAdd');
+      Notification.success();
+    });
+  },
+  decrement: function decrement(id) {
+    axios.get('/api/decrement/' + id).then(function () {
+      //without loading
+      Reload.$emit('AfterAdd');
+      Notification.success();
     });
   }
 }), _created$created$data);
@@ -56981,13 +56994,29 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "button",
-                                { staticClass: "btn btn-sm btn-success" },
+                                {
+                                  staticClass: "btn btn-sm btn-success",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.increment(cart.id)
+                                    }
+                                  }
+                                },
                                 [_vm._v("+")]
                               ),
                               _vm._v(" "),
                               _c(
                                 "button",
-                                { staticClass: "btn btn-sm btn-danger" },
+                                {
+                                  staticClass: "btn btn-sm btn-danger",
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.decrement(cart.id)
+                                    }
+                                  }
+                                },
                                 [_vm._v("-")]
                               )
                             ]),
