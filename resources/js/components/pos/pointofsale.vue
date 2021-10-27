@@ -44,9 +44,11 @@
                       <tr v-for="cart in carts" :key="cart.id">
                         <td>{{cart.pro_name}}</td>
                         <td>
-                        <input type="text" readonly="" :value="cart.pro_quantity" style="width:15px">
+                        <input type="text" readonly="" :value="cart.pro_quantity" style="width:20px">
                         <button @click.prevent="increment(cart.id)" class="btn btn-sm btn-success">+</button>
-                        <button @click.prevent="decrement(cart.id)" class="btn btn-sm btn-danger">-</button>
+                        <button @click.prevent="decrement(cart.id)"
+                        class="btn btn-sm btn-danger" v-if="cart.pro_quantity >= 2">-</button>
+                        <button class="btn btn-sm btn-danger" v-else disabled="">-</button>
                          </td>
                         <td>{{cart.product_price}}</td>
                         <td>{{cart.sub_total}}</td>
@@ -167,7 +169,7 @@
                   <input type="text" v-model="getsearchTerm" class="form-control" style="width: 650px;" placeholder="Search Product">
                       <div class="row">
                     <div class="col-lg-3 col-md-3 col-sm-6 col-6"  v-for="getproduct in getfiltersearch" :key="getproduct.id">
-                               <a href="#">
+                               <button class="btn btn-sm" @click.prevent="addToCart(getproduct.id)">
                               <div class="card" style="width:8.5rem; margin-bottom: 5px;">
                                  <img :src="getproduct.image" id="em_photo" class="card-img-top">
                                <div class="card-body">
@@ -177,7 +179,7 @@
                                <span class="badge badge-danger" v-else> Stock Out </span>
                                </div>
                             </div>
-                            </a>
+                            </button>
 
                         </div>
 
