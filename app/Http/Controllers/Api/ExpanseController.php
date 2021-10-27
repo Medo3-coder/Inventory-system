@@ -46,7 +46,7 @@ class ExpanseController extends Controller
         //     $expense->save();
 
 
-        $validatedData = $request->validated();
+         $validatedData = $request->validated();
          $validatedData['expense_date'] = Carbon::now()->format('Y-m-d');
          $expanse = Expanse::create( $validatedData );
 
