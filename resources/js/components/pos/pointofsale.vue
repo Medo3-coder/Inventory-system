@@ -61,21 +61,21 @@
                 <div class="card-footer">
                 <ul class="list-group">
                   <li class="list-group-item d-flex justify-content-between align-items-center">
-                   Total Quantity:  <strong>65</strong>
+                   Total Quantity:  <strong>{{ qty }}</strong>
                   </li>
 
                   <li class="list-group-item d-flex justify-content-between align-items-center">
-                   Sub Total:  <strong>655 $</strong>
-                  </li>
-
-
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                   Vat:  <strong>30 %</strong>
+                   Sub Total:  <strong>{{ subtotal }} $</strong>
                   </li>
 
 
                   <li class="list-group-item d-flex justify-content-between align-items-center">
-                   Total:  <strong>364 $</strong>
+                   Vat:  <strong>{{ vats.vat }} %</strong>
+                  </li>
+
+
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                   Total:  <strong>{{ subtotal * vats.vat / 100 + subtotal}} $</strong>
                   </li>
 
                 </ul>
@@ -227,6 +227,7 @@
     this.allCategory();
     this.allCustomer();
     this.cartProduct();
+    this.vat();
     Reload.$on('AfterAdd',() =>{
         this.cartProduct();
     })
@@ -242,6 +243,7 @@
         customers:'',
         errors:'',
         carts:[],
+        vats:'',
       }
     },
     computed:{
@@ -256,6 +258,24 @@
       return this.getproducts.filter(getproduct => {
          return getproduct.product_name.match(this.getsearchTerm)
       })
+      },
+
+
+    qty(){
+      let sum = 0 ;
+       for(let i = 0 ; i < this.carts.length; i++){
+           sum += (parseFloat(this.carts[i].pro_quantity));
+       }
+       return sum;
+      },
+
+
+    subtotal(){
+      let sum = 0 ;
+       for(let i = 0 ; i < this.carts.length; i++){
+           sum += (parseFloat(this.carts[i].pro_quantity) * parseFloat(this.carts[i].product_price));
+       }
+       return sum;
       },
 
     },
@@ -287,7 +307,7 @@
     },
 
 
-     subproduct(id){
+    subproduct(id){
       axios.get('/api/getting/product/'+id)
       .then(({data}) => (this.getproducts = data))
       .catch()
@@ -304,7 +324,7 @@
     },
 
 
-     removeItem(id){
+    removeItem(id){
      axios.get('/api/remove/cart/'+id)
      .then(() =>{
          //without loading
@@ -331,6 +351,13 @@
      Reload.$emit('AfterAdd');
      Notification.success()
       })
+    },
+
+
+    vat(){
+    axios.get('/api/vats/')
+    .then(({data}) => (this.vats = data))
+    .catch()
     },
 
 
