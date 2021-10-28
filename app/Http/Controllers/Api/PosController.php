@@ -15,4 +15,10 @@ class PosController extends Controller
         ->get();
         return response()->json($getProduct);
     }
+
+
+    public function orderDone( Request $request)
+    {
+         return response('done');
+    }
 }

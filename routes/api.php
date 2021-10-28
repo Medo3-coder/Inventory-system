@@ -73,6 +73,8 @@ Route::apiResource('/product', ProductController::class);
 
 Route::get('/getting/product/{id}', [PosController::class , 'getProduct']);
 
+Route::post('/orderdone', [PosController::class , 'orderDone']);
+
 
 //add to cart Route
 Route::get('/addToCart/{id}', [CartController::class , 'addToCart']);
@@ -84,6 +86,8 @@ Route::get('/remove/cart/{id}', [CartController::class , 'removeCart']);
 
 Route::get('/increment/{id}', [CartController::class , 'increment']);
 Route::get('/decrement/{id}', [CartController::class , 'decrement']);
+
+
 
 
 //vat Route
