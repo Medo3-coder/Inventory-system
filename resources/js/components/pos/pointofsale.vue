@@ -371,7 +371,7 @@
     orderdone(){
 
       let total = this.subtotal * this.vats.vat / 100 + this.subtotal;
-      var data = {qty:this.qty , subtotal:this.subtotal , customer_id:this.customer_id,
+      var data = {qty:this.qty , subtotal:this.subtotal , customer_id:this.customer_id, pay:this.pay,
       payby:this.payby , due:this.due , vat:this.vats.vat , total:total}
 
       axios.post('/api/orderdone' , data)

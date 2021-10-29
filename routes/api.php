@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\ExpanseController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\PosController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SalaryController;
@@ -73,7 +74,7 @@ Route::apiResource('/product', ProductController::class);
 
 Route::get('/getting/product/{id}', [PosController::class , 'getProduct']);
 
-Route::post('/orderdone', [PosController::class , 'orderDone']);
+
 
 
 //add to cart Route
@@ -93,3 +94,9 @@ Route::get('/decrement/{id}', [CartController::class , 'decrement']);
 //vat Route
 
 Route::get('/vats', [CartController::class , 'vats']);
+Route::post('/orderdone', [PosController::class , 'orderDone']);
+
+
+
+// order Route
+Route::get('/orders', [OrderController::class , 'TodayOrder']);
