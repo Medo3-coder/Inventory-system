@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PosController extends Controller
 {
@@ -33,7 +34,7 @@ class PosController extends Controller
     $data['pay'] = $request->pay;
     $data['due'] = $request->due;
     $data['payby'] = $request->payby;
-    $data['order_date'] = date('d/m/Y');
+    $data['order_date'] = date('d/m/y');
     $data['order_month'] = date('F');
     $data['order_year'] = date('Y');
     $order_id = DB::table('orders')->insertGetId($data);
@@ -49,8 +50,14 @@ class PosController extends Controller
     $odata['sub_total'] = $content->sub_total;
     DB::table('order_details')->insert($odata);
 
+   // to update data in stock
+     DB::table('products')->where('id',$content->pro_id)
+     ->update(['product_quantity' =>DB::raw('product_quantity -' . $content->pro_quantity)]);
+
 
     }
+    DB::table('pos')->delete();
+    return response('done');
 
 
    }

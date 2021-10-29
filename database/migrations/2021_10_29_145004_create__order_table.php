@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdersTable extends Migration
+class CreateOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,7 @@ class CreateOrdersTable extends Migration
      */
     public function up()
     {
+
         Schema::create('orders', function (Blueprint $table) {
             $table->id('id');
             $table->integer('customer_id');
@@ -23,9 +24,9 @@ class CreateOrdersTable extends Migration
             $table->string('pay')->nullable();
             $table->string('due')->nullable();
             $table->string('payby')->nullable();
-            $table->date('order_date')->nullable();
-            $table->date('order_month')->nullable();
-            $table->date('order_year')->nullable();
+            $table->string('order_date')->nullable();
+            $table->string('order_month')->nullable();
+            $table->string('order_year')->nullable();
             $table->timestamps();
         });
     }

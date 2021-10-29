@@ -5039,6 +5039,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     })["catch"]();
   },
   orderdone: function orderdone() {
+    var _this10 = this;
+
     var total = this.subtotal * this.vats.vat / 100 + this.subtotal;
     var data = {
       qty: this.qty,
@@ -5050,7 +5052,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       total: total
     };
     axios.post('/api/orderdone', data).then(function () {
-      Notification.success(); //  this.$router.push({name : 'home'})
+      Notification.success();
+
+      _this10.$router.push({
+        name: 'home'
+      });
     });
   }
 }), _created$created$data);
