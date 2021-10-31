@@ -106,3 +106,12 @@ Route::get('/order/details/{id}', [OrderController::class , 'OrderDetails']);
 Route::get('/order/orderdetails/{id}', [OrderController::class , 'OrderDetailsAll']);
 
 Route::post('/search/order/', [PosController::class , 'SearchOrderDate']);
+
+
+//Admin Dashboard RouteTodayIncome
+
+ Route::get('/today/sell', [PosController::class,'TodaySell']);
+ Route::Get('/today/income', [PosController::class,'TodayIncome']);
+ Route::Get('/today/due',  [PosController::class,'TodayDue']);
+ Route::Get('/today/expense', [PosController::class,'TodayExpense']);
+ Route::Get('/today/stockout', [PosController::class,'Stockout']);

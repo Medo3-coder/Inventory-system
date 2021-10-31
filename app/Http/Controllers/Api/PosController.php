@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResorce;
+use App\Http\Resources\ProductResource;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -83,5 +84,44 @@ class PosController extends Controller
     //    //dd($order);
 
       return response()->json($order);
+   }
+
+
+   public function TodaySell()
+   {
+       $date = date('d/m/y');
+       $sell = DB::table('orders')->where('order_date',$date)->sum('total');
+       return response()->json($sell);
+   }
+
+
+   public function TodayIncome()
+   {
+        $date = date('d/m/y');
+        $icome = DB::table('orders')->where('order_date',$date)->sum('pay');
+        return response()->json($icome);
+   }
+
+   public function TodayDue()
+   {
+        $date = date('d/m/y');
+        $due = DB::table('orders')->where('order_date',$date)->sum('due');
+        return response()->json($due);
+   }
+
+
+   public function TodayExpense()
+   {
+    $date = Carbon::now()->format('Y-m-d');
+    $expense = DB::table('expanses')->where('expense_date',$date)->sum('amount');
+    return response()->json($expense);
+   }
+
+   public function Stockout()
+   {
+       //$product = DB::table('products')->where('product_quantity' , '<' , '1')->get();
+
+       $product = ProductResource::collection(Product::where('product_quantity' , '<' , '1')->get());
+       return response()->json($product);
    }
 }
