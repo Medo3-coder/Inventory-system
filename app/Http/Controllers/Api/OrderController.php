@@ -24,18 +24,18 @@ class OrderController extends Controller
 
        public function OrderDetails($id)
        {
-            $orderDetails = OrderDetailsResource::collection(Order::where('id', $id)->get());
+        //     $orderDetails = OrderDetailsResource::collection(Order::where('id', $id)->get());
 
-          // dd($orderDetails);
-             return response()->json($orderDetails);
+        //    // dd($orderDetails);
+        //      return response()->json($orderDetails);
 
-            //         $order = DB::table('orders')
-            //     ->join('customers','orders.customer_id','customers.id')
-            //     ->where('orders.id',$id)
-            //     ->select('customers.name','customers.phone','customers.address','orders.*')
-            //     ->first();
-            //       dd( $order );
-            //    // return response()->json($order);
+                    $order = DB::table('orders')
+                ->join('customers','orders.customer_id','customers.id')
+                ->where('orders.id',$id)
+                ->select('customers.name','customers.phone','customers.address','orders.*')
+                ->first();
+                 // dd( $order );
+               return response()->json($order);
        }
 
 

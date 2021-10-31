@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\OrderResorce;
+use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use DateTime;
 
 class PosController extends Controller
 {
@@ -60,5 +63,25 @@ class PosController extends Controller
     return response('done');
 
 
+   }
+
+
+   public function SearchOrderDate(Request $request)
+   {
+       $orderdate = $request->date;
+       $newDate = new DateTime($orderdate);
+       $changedFormatDate = $newDate->format('d/m/y') ;
+
+      $order = OrderResorce::collection(Order::where('order_date',$changedFormatDate)->get());
+
+
+
+    //    $order = DB::table('orders')
+    //    ->join('customers','orders.customer_id','customers.id')
+    //    ->select('customers.name','orders.*')
+    //    ->where('orders.order_date',$changedFormatDate)->get();
+    //    //dd($order);
+
+      return response()->json($order);
    }
 }
